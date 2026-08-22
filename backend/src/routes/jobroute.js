@@ -1,0 +1,13 @@
+const express= require('express')
+const jobcontroller= require('../controllers/jobcontroller')
+const authjob= require('../middleware/authjob')
+const jobvalidiator= require('../middleware/jobvalidiator')
+const router= express.Router()
+router.post('/createjob',authjob.authrecruiter,jobvalidiator, jobcontroller.createjob)
+router.get('/getjob',jobcontroller.getjob)
+router.get('/getjob/:id',authjob.jobseeker,jobcontroller.getjobdetails)
+router.patch('/editjob/:id',authjob.authrecruiter,jobcontroller.editjob)
+router.delete('/deletejob/:id',authjob.authrecruiter,jobcontroller.deletejob)
+router.get('/:id/applications',authjob.authrecruiter,jobcontroller.getallapplications)
+router.post('/bulk', authjob.authrecruiter, jobcontroller.createbulkjob)
+module.exports= router

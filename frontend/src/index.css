@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@theme{
+    --color-bgdark:#010813;
+    --color-bgpurple:#4E31BD;
+    --color-white:#FDFDFD;
+}
+html,body{
+    overflow-x:hidden;
+}
+#categorycard {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#categorycard::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
