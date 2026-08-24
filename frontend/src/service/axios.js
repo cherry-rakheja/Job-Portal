@@ -31,7 +31,7 @@ api.interceptors.request.use(
 
 // Refresh ke liye ALAG axios instance
 const refreshApi = axios.create({
-    baseURL: 'https://job-portal-a10o.onrender.com',
+    baseURL: 'https://job-portal-a10o.onrender.com/api',
     withCredentials: true,
 });
 

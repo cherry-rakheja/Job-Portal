@@ -15,19 +15,17 @@ const applicationschema= mongoose.Schema({
         type:String,
         required:true,
     },
-    status:{
-        type:String,
-        status:{
-            enum:[
-                'applied',
-                'under-review',
-                'shortlisted',
-                'rejected',
-                'hired'
-            ],
-            default:'applied'
-        }
-    }
+   status: {
+    type: String,
+    enum: [
+        'applied',
+        'under-review',
+        'shortlisted',
+        'rejected',
+        'hired'
+    ],
+    default: 'applied'
+}
 })
 const applicationmodel= mongoose.model('application',applicationschema)
 module.exports= applicationmodel

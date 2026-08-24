@@ -5,6 +5,12 @@ import { usercont } from '../context/Usercontext'
 const Protectedroute = ({ allowedRole }) => {
 
     const { user, loading } = useContext(usercont);
+    console.log("PROTECTED ROUTE:", {
+        user,
+        role: user?.role,
+        allowedRole,
+        loading
+    });
 
   
     if (loading) {
@@ -19,7 +25,7 @@ const Protectedroute = ({ allowedRole }) => {
 
 
     if (!user) {
-        return <Navigate to="/not-allowed" replace />;
+        return <Navigate to="/login" replace />;
     }
 
 

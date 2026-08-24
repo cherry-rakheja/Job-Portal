@@ -30,10 +30,6 @@ const Recruiter = () => {
 
                     <div className="flex items-center gap-3">
 
-                        <button className="rounded-lg border border-white/10 bg-[#0B111D] px-4 py-2 text-sm text-white/60 hover:text-white">
-                            <i className="ri-notification-3-line mr-2"></i>
-                            Notifications
-                        </button>
 
                         <Logoutbtn />
 

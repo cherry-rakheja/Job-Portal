@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbtn from './Navbtn'
 
 const Navbar = () => {
     const [menuopen, setmenuopen] = useState(false);
+    const navigate= useNavigate()
     return (
         <>
-        <nav className='hidden md:flex px-6 items-center justify-between py-5 max-w-full h-auto   '>
+        <nav  className='hidden md:flex px-6 items-center justify-between py-5 max-w-full h-auto   '>
             <div className='flex items-center gap-4'>
                 <i className="ri-briefcase-2-fill text-[#6041C6] text-2xl"></i>
                 <h1 className='text-3xl font-semibold'>Apna<span className='bg-linear-to-r from-[#B9A7FF] via-[#5A43C7] to-[#B9A7FF]   bg-clip-text text-transparent'>Career</span></h1>
@@ -39,7 +40,7 @@ const Navbar = () => {
             </div>
             <Navbtn/>
         </nav>
-        <nav className='md:hidden flex relative  max-w-full items-center justify-between py-4 px-7'>
+        <nav  className='md:hidden flex relative  max-w-full items-center justify-between py-4 px-7'>
             <div className='flex items-center gap-4'>
                 <i className="ri-briefcase-2-fill text-[#6041C6] text-2xl"></i>
             <h1 className='text-3xl font-semibold'>Apna<span className='bg-linear-to-r from-[#B9A7FF] via-[#5A43C7] to-[#B9A7FF]   bg-clip-text text-transparent'>Career</span></h1>

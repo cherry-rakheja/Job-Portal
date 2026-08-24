@@ -1,11 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Searchbar = () => {
+    const navigate= useNavigate()
     return (
-        <div className="bg-[#010512] max-w-full  grid grid-cols-2 md:grid-cols-4 gap-4 h-auto items-center mt-3 rounded-lg ">
+        <div 
+         className="bg-[#010512] max-w-full  grid grid-cols-2 md:grid-cols-4 gap-4 h-auto items-center mt-3 rounded-lg ">
 
             {/* Search */}
-            <div className="flex border col-span-2 md:col-span-1 items-center pl-4 border-white/50 rounded-lg">
+            <div  className="flex border col-span-2 md:col-span-1 items-center pl-4 border-white/50 rounded-lg">
                 <i className="ri-search-line text-white/50 text-lg"></i>
 
                 <input

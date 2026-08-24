@@ -14,4 +14,15 @@ app.use(cookieparser())
 app.use('/api/auth',authroute)
 app.use('/api/jobs',jobroute)
 app.use('/api/application',applicationroute)
+
+app.use((err, req, res, next) => {
+
+    console.log('GLOBAL ERROR:', err)
+    console.log('GLOBAL ERROR MESSAGE:', err.message)
+
+    res.status(500).json({
+        message: err.message || 'Internal Server Error'
+    })
+
+})
 module.exports= app;

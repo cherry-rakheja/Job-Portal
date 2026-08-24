@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import Navbar from '../components/common/Navbar'
 import { useNavigate } from 'react-router-dom'
 import { usercont } from '../context/Usercontext'
-import api from '../service/axios'
+import api,{setAccessToken} from '../service/axios'
 
 const Login = () => {
 
@@ -44,6 +44,7 @@ const Login = () => {
             console.log(loggeduser?.role);
 
             // Token context mein save
+            setAccessToken(token)
             setacesstoken(token)
             setUser(loggeduser)
            
