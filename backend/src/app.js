@@ -7,7 +7,7 @@ const jobroute= require('../src/routes/jobroute')
 const applicationroute= require('../src/routes/applicationroute')
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173','http://job-portal-beta-mauve-51.vercel.app'],
+    origin: ['http://localhost:5173','https://job-portal-beta-mauve-51.vercel.app'],
     credentials: true
 }))
 app.use(cookieparser())
