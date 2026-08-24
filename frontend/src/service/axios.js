@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: 'https://job-portal-a10o.onrender.com/api',
     withCredentials: true,
 });
 
@@ -31,12 +31,13 @@ api.interceptors.request.use(
 
 // Refresh ke liye ALAG axios instance
 const refreshApi = axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: 'https://job-portal-a10o.onrender.com',
     withCredentials: true,
 });
 
 
 api.interceptors.response.use(
+
     (response) => {
         return response;
     },
@@ -45,10 +46,8 @@ api.interceptors.response.use(
 
         const originalRequest = error.config;
 
-
         // Agar 401 nahi hai
         // ya request already retry ho chuki hai
-        // to directly error return karo
         if (
             error.response?.status !== 401 ||
             originalRequest._retry
@@ -56,39 +55,29 @@ api.interceptors.response.use(
             return Promise.reject(error);
         }
 
-
         originalRequest._retry = true;
-
 
         try {
 
-            // IMPORTANT:
-            // refreshApi use kar rahe hain, api nahi
             const response = await refreshApi.post(
                 "/auth/token"
             );
 
-
             const newAccessToken =
                 response.data.acesstoken;
 
-
             // New access token memory mein save
             setAccessToken(newAccessToken);
-
 
             // Original request mein new token lagao
             originalRequest.headers.Authorization =
                 `Bearer ${newAccessToken}`;
 
-
             // Original request dobara bhejo
             return api(originalRequest);
 
-
         } catch (refreshError) {
 
-            // Refresh token bhi invalid/expired hai
             setAccessToken(null);
 
             return Promise.reject(refreshError);
