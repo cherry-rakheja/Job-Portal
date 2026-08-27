@@ -10,6 +10,7 @@ import Applyform from './pages/Applyform'
 import Recruiter from './pages/Recruiter'
 import Protectedroute from './pages/Protectedroute'
 import NotAllowed from './pages/NotAllowed'
+import Jobseekerdb from './pages/Jobseekerdb'
 
 const App = () => {
     return (
@@ -41,6 +42,7 @@ const App = () => {
                     path="/jobseeker"
                     element={<Jobseeker />}
                 />
+                <Route path='/jobseekerdashboard' element={<Jobseekerdb/>}/>
 
                 <Route
                     path="/jobdetail/:id"

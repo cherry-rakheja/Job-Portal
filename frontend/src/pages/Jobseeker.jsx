@@ -41,7 +41,6 @@ const Jobseeker = () => {
     })
 
 
-    // Sirf maximum 10 jobs show hongi
     const visibleJobs = filteredjobs.slice(0, 10)
 
 

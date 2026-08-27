@@ -9,6 +9,14 @@ const applyjob = async (req, res) => {
 
         const { id } = req.params
 
+        console.log('JOB ID:', id)
+        console.log('USER:', req.user)
+        console.log('FILE:', req.file)
+        console.log(
+            'IMAGEKIT SECRET:',
+            !!process.env.IMAGEKIT_SECRET
+        )
+
         const job = await jobmodel.findById(id)
 
         if (!job) {
@@ -34,16 +42,14 @@ const applyjob = async (req, res) => {
             })
         }
 
-        console.log('FILE:', req.file)
-        console.log(
-            'IMAGEKIT SECRET:',
-            !!process.env.IMAGEKIT_SECRET
-        )
-
-        // Upload resume
+        // ImageKit
         const uploadedFile = await uploadFile(req.file)
 
         console.log('IMAGEKIT RESPONSE:', uploadedFile)
+
+        if (!uploadedFile?.url) {
+            throw new Error('ImageKit did not return file URL')
+        }
 
         const application = await applicationmodel.create({
             job: id,
@@ -56,15 +62,18 @@ const applyjob = async (req, res) => {
             application
         })
 
-    } 
-    catch (error) {
-    console.log("APPLY JOB ERROR:", error)
-    console.log("ERROR MESSAGE:", error.message)
+    } catch (error) {
 
-    return res.status(500).json({
-        message: error.message
-    })
-}
+        console.log('==========================')
+        console.log('APPLY JOB ERROR')
+        console.log('MESSAGE:', error.message)
+        console.log('STACK:', error.stack)
+        console.log('==========================')
+
+        return res.status(500).json({
+            message: error.message || 'Internal Server Error'
+        })
+    }
 }
 
 

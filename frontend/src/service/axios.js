@@ -1,53 +1,37 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://job-portal-a10o.onrender.com/api',
-    withCredentials: true,
+    baseURL: "https://job-portal-a10o.onrender.com/api",
+    withCredentials: true
 });
 
-
-// Current access token
 let accessToken = null;
 
-
-// Context se token yahan set hoga
 export const setAccessToken = (token) => {
     accessToken = token;
 };
 
+api.interceptors.request.use((config) => {
 
-// Normal API requests ke liye token automatically add hoga
-api.interceptors.request.use(
-    (config) => {
-
-        if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`;
-        }
-
-        return config;
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
     }
-);
 
-
-// Refresh ke liye ALAG axios instance
-const refreshApi = axios.create({
-    baseURL: 'https://job-portal-a10o.onrender.com/api',
-    withCredentials: true,
+    return config;
 });
 
+export const refreshApi = axios.create({
+    baseURL: "https://job-portal-a10o.onrender.com/api",
+    withCredentials: true
+});
 
 api.interceptors.response.use(
-
-    (response) => {
-        return response;
-    },
+    (response) => response,
 
     async (error) => {
 
         const originalRequest = error.config;
 
-        // Agar 401 nahi hai
-        // ya request already retry ho chuki hai
         if (
             error.response?.status !== 401 ||
             originalRequest._retry
@@ -66,14 +50,11 @@ api.interceptors.response.use(
             const newAccessToken =
                 response.data.acesstoken;
 
-            // New access token memory mein save
             setAccessToken(newAccessToken);
 
-            // Original request mein new token lagao
             originalRequest.headers.Authorization =
                 `Bearer ${newAccessToken}`;
 
-            // Original request dobara bhejo
             return api(originalRequest);
 
         } catch (refreshError) {
@@ -84,6 +65,5 @@ api.interceptors.response.use(
         }
     }
 );
-
 
 export default api;

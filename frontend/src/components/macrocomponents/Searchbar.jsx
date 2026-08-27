@@ -88,7 +88,8 @@ const Searchbar = () => {
                 </select>
             </div>
 
-            <button className="rounded-lg col-span-2 md:col-span-1 text-center bg-[#492DBB] hover:bg-[#5a3bce] text-white px-3 py-3 text-sm transition">
+            <button onClick={()=>navigate('/login')}
+             className="rounded-lg col-span-2 md:col-span-1 text-center bg-[#492DBB] hover:bg-[#5a3bce] text-white px-3 py-3 text-sm transition">
                 Search Jobs
             </button>
 

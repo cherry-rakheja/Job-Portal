@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import Jobseekerdb from '../../pages/Jobseekerdb'
 
 const Jobseekernav = () => {
   return (
@@ -8,21 +10,17 @@ const Jobseekernav = () => {
                     <h1 className='text-3xl font-semibold'>Apna<span className='bg-linear-to-r from-[#B9A7FF] via-[#5A43C7] to-[#B9A7FF]   bg-clip-text text-transparent'>Career</span></h1>
 
                     <div className="hidden items-center gap-8 text-sm text-white/60 md:flex">
-                        <button className="text-white">
+                        <Link to='/jobseekerdashboard' className="text-white">
                             Dashboard
-                        </button>
+                        </Link>
 
-                        <button onClick={() => navigate('/jobs')}>
+                        <Link to='/jobseeker' >
                             Jobs
-                        </button>
+                        </Link>
 
-                        <button>
-                            Companies
-                        </button>
-
-                        <button>
+                        <Link>
                             Applications
-                        </button>
+                        </Link>
                     </div>
 
                     <button className="flex h-9 w-9 items-center justify-center rounded-full bg-[#492DBB]">

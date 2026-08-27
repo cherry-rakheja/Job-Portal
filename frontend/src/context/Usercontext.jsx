@@ -5,6 +5,7 @@ import React, {
 } from "react";
 
 import api, {
+    refreshApi,
     setAccessToken
 } from "../service/axios";
 
@@ -16,41 +17,31 @@ const Usercontext = ({ children }) => {
     const [acesstoken, setacesstoken] = useState(null);
     const [user, setUser] = useState(null);
 
-
-    // App load
     useEffect(() => {
 
         const initializeAuth = async () => {
 
+            console.log("AUTH INITIALIZING...");
+
             try {
 
-                // Refresh token se new access token
-                const response = await api.post(
-                    "/auth/token",
-                    {},
-                    {
-                        withCredentials: true
-                    }
+                // Refresh cookie automatically send hogi
+                const response = await refreshApi.post(
+                    "/auth/token"
                 );
 
-                const token = response.data.acesstoken;
+                const token =
+                    response.data.acesstoken;
 
-                console.log("REFRESH TOKEN:", token);
+                console.log("NEW ACCESS TOKEN:", token);
 
-                // IMPORTANT
+                // memory mein token
                 setAccessToken(token);
                 setacesstoken(token);
 
-
-                // Token set hone ke baad profile
-                const profileResponse = await api.get(
-                    "/auth/profile",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
+                // Profile
+                const profileResponse =
+                    await api.get("/auth/profile");
 
                 console.log(
                     "PROFILE:",
@@ -64,7 +55,12 @@ const Usercontext = ({ children }) => {
             } catch (error) {
 
                 console.log(
-                    "AUTH ERROR:",
+                    "AUTH ERROR STATUS:",
+                    error.response?.status
+                );
+
+                console.log(
+                    "AUTH ERROR DATA:",
                     error.response?.data
                 );
 
@@ -83,7 +79,6 @@ const Usercontext = ({ children }) => {
         initializeAuth();
 
     }, []);
-
 
     return (
         <usercont.Provider
